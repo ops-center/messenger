@@ -8,8 +8,8 @@ import (
 
 	v "github.com/appscode/go/version"
 	"github.com/appscode/kutil/tools/analytics"
-	"github.com/appscode/messenger/client/clientset/versioned/scheme"
 	"github.com/jpillora/go-ogle-analytics"
+	"github.com/kubeware/messenger/client/clientset/versioned/scheme"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	genericapiserver "k8s.io/apiserver/pkg/server"

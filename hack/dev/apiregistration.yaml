@@ -32,12 +32,12 @@ subsets:
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.admission.messenger.appscode.com
+  name: v1alpha1.admission.messenger.kubeware.io
   labels:
     app: test-messenger
 spec:
   insecureSkipTLSVerify: true
-  group: admission.messenger.appscode.com
+  group: admission.messenger.kubeware.io
   groupPriorityMinimum: 1000
   versionPriority: 15
   service:
@@ -49,12 +49,12 @@ spec:
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.repositories.messenger.appscode.com
+  name: v1alpha1.repositories.messenger.kubeware.io
   labels:
     app: test-messenger
 spec:
   insecureSkipTLSVerify: true
-  group: repositories.messenger.appscode.com
+  group: repositories.messenger.kubeware.io
   groupPriorityMinimum: 1000
   versionPriority: 15
   service:

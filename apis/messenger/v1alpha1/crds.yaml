@@ -5,9 +5,9 @@ metadata:
   creationTimestamp: null
   labels:
     app: messenger
-  name: notifiers.messenger.appscode.com
+  name: notifiers.messenger.kubeware.io
 spec:
-  group: messenger.appscode.com
+  group: messenger.kubeware.io
   names:
     kind: Notifier
     plural: notifiers

@@ -28,8 +28,8 @@ Scanner is written in Google's GO programming language. Currently, Scanner is de
 #### Download Source
 
 ```console
-$ go get github.com/appscode/messenger
-$ cd $(go env GOPATH)/src/github.com/appscode/messenger
+$ go get github.com/kubeware/messenger
+$ cd $(go env GOPATH)/src/github.com/kubeware/messenger
 ```
 
 #### Install Dev tools

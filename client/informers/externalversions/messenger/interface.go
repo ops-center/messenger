@@ -19,8 +19,8 @@ limitations under the License.
 package messenger
 
 import (
-	internalinterfaces "github.com/appscode/messenger/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/appscode/messenger/client/informers/externalversions/messenger/v1alpha1"
+	internalinterfaces "github.com/kubeware/messenger/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/kubeware/messenger/client/informers/externalversions/messenger/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

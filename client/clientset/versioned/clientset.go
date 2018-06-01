@@ -19,8 +19,8 @@ limitations under the License.
 package versioned
 
 import (
-	messengerv1alpha1 "github.com/appscode/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
 	glog "github.com/golang/glog"
+	messengerv1alpha1 "github.com/kubeware/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

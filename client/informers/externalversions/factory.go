@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/appscode/messenger/client/clientset/versioned"
-	internalinterfaces "github.com/appscode/messenger/client/informers/externalversions/internalinterfaces"
-	messenger "github.com/appscode/messenger/client/informers/externalversions/messenger"
+	versioned "github.com/kubeware/messenger/client/clientset/versioned"
+	internalinterfaces "github.com/kubeware/messenger/client/informers/externalversions/internalinterfaces"
+	messenger "github.com/kubeware/messenger/client/informers/externalversions/messenger"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

@@ -2,10 +2,10 @@ package util
 
 import (
 	"github.com/appscode/kutil"
-	api "github.com/appscode/messenger/apis/messenger/v1alpha1"
-	cs "github.com/appscode/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
 	"github.com/evanphx/json-patch"
 	"github.com/golang/glog"
+	api "github.com/kubeware/messenger/apis/messenger/v1alpha1"
+	cs "github.com/kubeware/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
 	"github.com/pkg/errors"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

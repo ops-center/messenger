@@ -1,23 +1,23 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: admission.messenger.appscode.com
+  name: admission.messenger.kubeware.io
   labels:
     app: messenger
 webhooks:
-- name: notifier.admission.messenger.appscode.com
+- name: notifier.admission.messenger.kubeware.io
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/admission.messenger.appscode.com/v1alpha1/notifiers
+      path: /apis/admission.messenger.kubeware.io/v1alpha1/notifiers
     caBundle: ${KUBE_CA}
   rules:
   - operations:
     - CREATE
     - UPDATE
     apiGroups:
-    - messenger.appscode.com
+    - messenger.kubeware.io
     apiVersions:
     - "*"
     resources:

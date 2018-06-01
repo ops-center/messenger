@@ -99,7 +99,7 @@ export MESSENGER_UNINSTALL=0
 export MESSENGER_PURGE=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/messenger/0.0.1/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubeware/messenger/0.0.1/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
     detect_tag
     export SCRIPT_LOCATION="cat "
@@ -218,13 +218,13 @@ if [ "$MESSENGER_UNINSTALL" -eq 1 ]; then
     # https://github.com/kubernetes/kubernetes/issues/60538
     if [ "$MESSENGER_PURGE" -eq 1 ]; then
         for crd in "${crds[@]}"; do
-            pairs=($(kubectl get ${crd}.messenger.appscode.com --all-namespaces -o jsonpath='{range .items[*]}{.metadata.name} {.metadata.namespace} {end}' || true))
+            pairs=($(kubectl get ${crd}.messenger.kubeware.io --all-namespaces -o jsonpath='{range .items[*]}{.metadata.name} {.metadata.namespace} {end}' || true))
             total=${#pairs[*]}
 
             # save objects
             if [ $total -gt 0 ]; then
                 echo "dumping ${crd} objects into ${crd}.yaml"
-                kubectl get ${crd}.messenger.appscode.com --all-namespaces -o yaml > ${crd}.yaml
+                kubectl get ${crd}.messenger.kubeware.io --all-namespaces -o yaml > ${crd}.yaml
             fi
 
             for (( i=0; i<$total; i+=2 )); do
@@ -232,11 +232,11 @@ if [ "$MESSENGER_UNINSTALL" -eq 1 ]; then
                 namespace=${pairs[$i + 1]}
                 # delete crd object
                 echo "deleting ${crd} $namespace/$name"
-                kubectl delete ${crd}.messenger.appscode.com $name -n $namespace
+                kubectl delete ${crd}.messenger.kubeware.io $name -n $namespace
             done
 
             # delete crd
-            kubectl delete crd ${crd}.messenger.appscode.com || true
+            kubectl delete crd ${crd}.messenger.kubeware.io || true
         done
 
         # delete user roles
@@ -295,12 +295,12 @@ $ONESSL wait-until-ready deployment messenger-service --namespace $MESSENGER_NAM
 
 if [ "$MESSENGER_ENABLE_VALIDATING_WEBHOOK" = true ]; then
     echo "waiting until messenger apiservice is available"
-    $ONESSL wait-until-ready apiservice v1alpha1.admission.messenger.appscode.com || { echo "Messenger apiservice failed to be ready"; exit 1; }
+    $ONESSL wait-until-ready apiservice v1alpha1.admission.messenger.kubeware.io || { echo "Messenger apiservice failed to be ready"; exit 1; }
 fi
 
 echo "waiting until messenger crds are ready"
 for crd in "${crds[@]}"; do
-    $ONESSL wait-until-ready crd ${crd}.messenger.appscode.com || { echo "$crd crd failed to be ready"; exit 1; }
+    $ONESSL wait-until-ready crd ${crd}.messenger.kubeware.io || { echo "$crd crd failed to be ready"; exit 1; }
 done
 
 echo

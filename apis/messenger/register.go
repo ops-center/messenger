@@ -7,4 +7,4 @@ import (
 )
 
 // GroupName is the group name use in this package
-const GroupName = "messenger.appscode.com"
+const GroupName = "messenger.kubeware.io"

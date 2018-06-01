@@ -21,7 +21,7 @@ The following steps must be done from a Linux x64 bit machine.
 - Build and push messenger docker image:
 
 ```console
-$ cd ~/go/src/github.com/appscode/messenger
+$ cd ~/go/src/github.com/kubeware/messenger
 ./hack/release.sh
 ```
 

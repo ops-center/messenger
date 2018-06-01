@@ -5,16 +5,16 @@ import (
 	"io"
 	"net"
 
-	"github.com/appscode/messenger/apis/messenger/v1alpha1"
-	"github.com/appscode/messenger/pkg/controller"
-	"github.com/appscode/messenger/pkg/server"
+	"github.com/kubeware/messenger/apis/messenger/v1alpha1"
+	"github.com/kubeware/messenger/pkg/controller"
+	"github.com/kubeware/messenger/pkg/server"
 	"github.com/spf13/pflag"
 	admissionv1beta1 "k8s.io/api/admission/v1beta1"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	genericoptions "k8s.io/apiserver/pkg/server/options"
 )
 
-const defaultEtcdPathPrefix = "/registry/messenger.appscode.com"
+const defaultEtcdPathPrefix = "/registry/messenger.kubeware.io"
 
 type MessengerOptions struct {
 	RecommendedOptions *genericoptions.RecommendedOptions
@@ -66,7 +66,7 @@ func (o MessengerOptions) Config() (*server.MessengerConfig, error) {
 	serverConfig.OpenAPIConfig.Info.Version = v1alpha1.SchemeGroupVersion.Version
 	serverConfig.OpenAPIConfig.IgnorePrefixes = []string{
 		"/swaggerapi",
-		"/apis/admission.messenger.appscode.com/v1alpha1/notifiers",
+		"/apis/admission.messenger.kubeware.io/v1alpha1/notifiers",
 	}
 
 	extraConfig := controller.NewConfig(serverConfig.ClientConfig)

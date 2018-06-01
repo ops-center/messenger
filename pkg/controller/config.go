@@ -3,9 +3,9 @@ package controller
 import (
 	"time"
 
-	cs "github.com/appscode/messenger/client/clientset/versioned"
-	messengerinformers "github.com/appscode/messenger/client/informers/externalversions"
-	"github.com/appscode/messenger/pkg/eventer"
+	cs "github.com/kubeware/messenger/client/clientset/versioned"
+	messengerinformers "github.com/kubeware/messenger/client/informers/externalversions"
+	"github.com/kubeware/messenger/pkg/eventer"
 	core "k8s.io/api/core/v1"
 	crd_cs "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

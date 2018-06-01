@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/appscode/messenger/apis/messenger/v1alpha1"
+	v1alpha1 "github.com/kubeware/messenger/apis/messenger/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -34,9 +34,9 @@ type FakeNotifiers struct {
 	ns   string
 }
 
-var notifiersResource = schema.GroupVersionResource{Group: "messenger.appscode.com", Version: "v1alpha1", Resource: "notifiers"}
+var notifiersResource = schema.GroupVersionResource{Group: "messenger.kubeware.io", Version: "v1alpha1", Resource: "notifiers"}
 
-var notifiersKind = schema.GroupVersionKind{Group: "messenger.appscode.com", Version: "v1alpha1", Kind: "Notifier"}
+var notifiersKind = schema.GroupVersionKind{Group: "messenger.kubeware.io", Version: "v1alpha1", Kind: "Notifier"}
 
 // Get takes name of the notifier, and returns the corresponding notifier object, and an error if there is any.
 func (c *FakeNotifiers) Get(name string, options v1.GetOptions) (result *v1alpha1.Notifier, err error) {

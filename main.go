@@ -6,7 +6,7 @@ import (
 
 	"github.com/appscode/go/log"
 	logs "github.com/appscode/go/log/golog"
-	"github.com/appscode/messenger/pkg/cmds"
+	"github.com/kubeware/messenger/pkg/cmds"
 	_ "k8s.io/client-go/kubernetes/fake"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
