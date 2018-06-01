@@ -273,8 +273,7 @@ export TLS_SERVING_KEY=$(cat server.key | $ONESSL base64)
 ${SCRIPT_LOCATION}hack/deploy/operator.yaml | $ONESSL envsubst | kubectl apply -f -
 
 # create rbac objects
-kubectl create serviceaccount $MESSENGER_SERVICE_ACCOUNT --namespace $MESSENGER_NAMESPACE
-kubectl label serviceaccount $MESSENGER_SERVICE_ACCOUNT app=messenger --namespace $MESSENGER_NAMESPACE
+${SCRIPT_LOCATION}hack/deploy/service-account.yaml | $ONESSL envsubst | kubectl apply -f -
 ${SCRIPT_LOCATION}hack/deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 ${SCRIPT_LOCATION}hack/deploy/user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 
@@ -294,8 +293,10 @@ echo
 echo "waiting until messenger operator deployment is ready"
 $ONESSL wait-until-ready deployment messenger-service --namespace $MESSENGER_NAMESPACE || { echo "Messenger operator deployment failed to be ready"; exit 1; }
 
-echo "waiting until messenger apiservice is available"
-$ONESSL wait-until-ready apiservice v1alpha1.admission.messenger.appscode.com || { echo "Messenger apiservice failed to be ready"; exit 1; }
+if [ "$MESSENGER_ENABLE_VALIDATING_WEBHOOK" = true ]; then
+    echo "waiting until messenger apiservice is available"
+    $ONESSL wait-until-ready apiservice v1alpha1.admission.messenger.appscode.com || { echo "Messenger apiservice failed to be ready"; exit 1; }
+fi
 
 echo "waiting until messenger crds are ready"
 for crd in "${crds[@]}"; do
