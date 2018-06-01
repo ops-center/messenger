@@ -1,4 +1,4 @@
-package: github.com/appscode/messenger
+package: github.com/kubeware/messenger
 import:
 - package: github.com/appscode/go
   version: master

@@ -2,7 +2,7 @@
 set -x
 
 GOPATH=$(go env GOPATH)
-REPO_ROOT="$GOPATH/src/github.com/appscode/messenger"
+REPO_ROOT="$GOPATH/src/github.com/kubeware/messenger"
 
 pushd $REPO_ROOT
 

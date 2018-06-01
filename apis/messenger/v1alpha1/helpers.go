@@ -17,7 +17,7 @@ func (p Notifier) CustomResourceDefinition() *crd_api.CustomResourceDefinition {
 		Labels: crdutils.Labels{
 			LabelsMap: map[string]string{"app": "messenger"},
 		},
-		SpecDefinitionName:    "github.com/appscode/messenger/apis/messenger/v1alpha1.Notifier",
+		SpecDefinitionName:    "github.com/kubeware/messenger/apis/messenger/v1alpha1.Notifier",
 		EnableValidation:      true,
 		GetOpenAPIDefinitions: GetOpenAPIDefinitions,
 	})

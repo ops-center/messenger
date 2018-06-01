@@ -17,8 +17,8 @@ limitations under the License.
 package install
 
 import (
-	"github.com/appscode/messenger/apis/messenger"
-	"github.com/appscode/messenger/apis/messenger/v1alpha1"
+	"github.com/kubeware/messenger/apis/messenger"
+	"github.com/kubeware/messenger/apis/messenger/v1alpha1"
 	"k8s.io/apimachinery/pkg/apimachinery/announced"
 	"k8s.io/apimachinery/pkg/apimachinery/registered"
 	"k8s.io/apimachinery/pkg/runtime"

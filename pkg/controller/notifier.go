@@ -7,9 +7,9 @@ import (
 	hooks "github.com/appscode/kubernetes-webhook-util/admission/v1beta1"
 	webhook "github.com/appscode/kubernetes-webhook-util/admission/v1beta1/generic"
 	"github.com/appscode/kutil/tools/queue"
-	"github.com/appscode/messenger/apis/messenger"
-	api "github.com/appscode/messenger/apis/messenger/v1alpha1"
 	"github.com/golang/glog"
+	"github.com/kubeware/messenger/apis/messenger"
+	api "github.com/kubeware/messenger/apis/messenger/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -17,7 +17,7 @@ import (
 func (c *MessengerController) NewNotifierWebhook() hooks.AdmissionHook {
 	return webhook.NewGenericWebhook(
 		schema.GroupVersionResource{
-			Group:    "admission.messenger.appscode.com",
+			Group:    "admission.messenger.kubeware.io",
 			Version:  "v1alpha1",
 			Resource: api.ResourceNotifiers,
 		},

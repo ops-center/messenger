@@ -12,7 +12,7 @@ rules:
   verbs:
   - "*"
 - apiGroups:
-  - messenger.appscode.com
+  - messenger.kubeware.io
   resources: ["*"]
   verbs: ["*"]
 - apiGroups:

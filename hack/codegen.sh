@@ -3,7 +3,7 @@
 set -x
 
 GOPATH=$(go env GOPATH)
-PACKAGE_NAME=github.com/appscode/messenger
+PACKAGE_NAME=github.com/kubeware/messenger
 REPO_ROOT="$GOPATH/src/$PACKAGE_NAME"
 DOCKER_REPO_ROOT="/go/src/$PACKAGE_NAME"
 DOCKER_CODEGEN_PKG="/go/src/k8s.io/code-generator"
@@ -14,8 +14,8 @@ docker run --rm -ti -u $(id -u):$(id -g) \
   -v "$REPO_ROOT":"$DOCKER_REPO_ROOT" \
   -w "$DOCKER_REPO_ROOT" \
   appscode/gengo:release-1.10 "$DOCKER_CODEGEN_PKG"/generate-groups.sh all \
-  github.com/appscode/messenger/client \
-  github.com/appscode/messenger/apis \
+  github.com/kubeware/messenger/client \
+  github.com/kubeware/messenger/apis \
   messenger:v1alpha1 \
   --go-header-file "$DOCKER_REPO_ROOT/hack/gengo/boilerplate.go.txt"
 

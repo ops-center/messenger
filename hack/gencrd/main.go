@@ -8,10 +8,10 @@ import (
 	gort "github.com/appscode/go/runtime"
 	crdutils "github.com/appscode/kutil/apiextensions/v1beta1"
 	"github.com/appscode/kutil/openapi"
-	"github.com/appscode/messenger/apis/messenger/install"
-	"github.com/appscode/messenger/apis/messenger/v1alpha1"
 	"github.com/go-openapi/spec"
 	"github.com/golang/glog"
+	"github.com/kubeware/messenger/apis/messenger/install"
+	"github.com/kubeware/messenger/apis/messenger/v1alpha1"
 	crd_api "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/apimachinery/announced"
 	"k8s.io/apimachinery/pkg/apimachinery/registered"
@@ -22,7 +22,7 @@ import (
 )
 
 func generateCRDDefinitions() {
-	filename := gort.GOPath() + "/src/github.com/appscode/messenger/apis/messenger/v1alpha1/crds.yaml"
+	filename := gort.GOPath() + "/src/github.com/kubeware/messenger/apis/messenger/v1alpha1/crds.yaml"
 
 	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
@@ -76,7 +76,7 @@ func generateSwaggerJson() {
 		glog.Fatal(err)
 	}
 
-	filename := gort.GOPath() + "/src/github.com/appscode/messenger/openapi-spec/v2/swagger.json"
+	filename := gort.GOPath() + "/src/github.com/kubeware/messenger/openapi-spec/v2/swagger.json"
 	err = ioutil.WriteFile(filename, []byte(apispec), 0644)
 	if err != nil {
 		glog.Fatal(err)

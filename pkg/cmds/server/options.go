@@ -4,8 +4,8 @@ import (
 	"flag"
 	"time"
 
-	cs "github.com/appscode/messenger/client/clientset/versioned"
-	"github.com/appscode/messenger/pkg/controller"
+	cs "github.com/kubeware/messenger/client/clientset/versioned"
+	"github.com/kubeware/messenger/pkg/controller"
 	"github.com/spf13/pflag"
 	crd_cs "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1beta1"
 	"k8s.io/client-go/kubernetes"

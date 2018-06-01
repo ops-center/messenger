@@ -1,7 +1,7 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/appscode/messenger)](https://goreportcard.com/report/github.com/appscode/messenger)
-[![Build Status](https://travis-ci.org/appscode/messenger.svg?branch=master)](https://travis-ci.org/appscode/messenger)
-[![codecov](https://codecov.io/gh/appscode/messenger/branch/master/graph/badge.svg)](https://codecov.io/gh/appscode/messenger)
-[![Docker Pulls](https://img.shields.io/docker/pulls/appscode/messenger.svg)](https://hub.docker.com/r/appscode/messenger/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kubeware/messenger)](https://goreportcard.com/report/github.com/kubeware/messenger)
+[![Build Status](https://travis-ci.org/kubeware/messenger.svg?branch=master)](https://travis-ci.org/kubeware/messenger)
+[![codecov](https://codecov.io/gh/kubeware/messenger/branch/master/graph/badge.svg)](https://codecov.io/gh/kubeware/messenger)
+[![Docker Pulls](https://img.shields.io/docker/pulls/kubeware/messenger.svg)](https://hub.docker.com/r/kubeware/messenger/)
 [![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
 [![Twitter](https://img.shields.io/twitter/follow/appscodehq.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=AppsCodeHQ)
 
@@ -13,7 +13,7 @@ Please pick a version of Messenger that matches your Kubernetes installation.
 
 | Messenger Version                                                            | Docs                                                      | Kubernetes Version |
 |----------------------------------------------------------------------------|-----------------------------------------------------------|--------------------|
-| [0.0.1](https://github.com/appscode/messenger/releases/tag/0.0.1) (uses CRD) | [User Guide](https://appscode.com/products/messenger/0.0.1) | 1.8.x +            |
+| [0.0.1](https://github.com/kubeware/messenger/releases/tag/0.0.1) (uses CRD) | [User Guide](https://appscode.com/products/messenger/0.0.1) | 1.8.x +            |
 
 ## Installation
 
@@ -34,4 +34,4 @@ Want to help improve Messenger? Please start [here](https://appscode.com/product
 ## Support
 We use Slack for public discussions. To chit chat with us or the rest of the community, join us in the [AppsCode Slack team](https://appscode.slack.com/messages/CAYG5P8CV/details/) channel `#messenger`. To sign up, use our [Slack inviter](https://slack.appscode.com/).
 
-If you have found a bug with Messenger or want to request for new features, please [file an issue](https://github.com/appscode/messenger/issues/new).
+If you have found a bug with Messenger or want to request for new features, please [file an issue](https://github.com/kubeware/messenger/issues/new).

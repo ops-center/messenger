@@ -19,8 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/appscode/messenger/apis/messenger/v1alpha1"
-	"github.com/appscode/messenger/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/kubeware/messenger/apis/messenger/v1alpha1"
+	"github.com/kubeware/messenger/client/clientset/versioned/scheme"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
 )
@@ -30,7 +30,7 @@ type MessengerV1alpha1Interface interface {
 	NotifiersGetter
 }
 
-// MessengerV1alpha1Client is used to interact with features provided by the messenger.appscode.com group.
+// MessengerV1alpha1Client is used to interact with features provided by the messenger.kubeware.io group.
 type MessengerV1alpha1Client struct {
 	restClient rest.Interface
 }

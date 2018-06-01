@@ -19,9 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/appscode/messenger/client/clientset/versioned"
-	messengerv1alpha1 "github.com/appscode/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
-	fakemessengerv1alpha1 "github.com/appscode/messenger/client/clientset/versioned/typed/messenger/v1alpha1/fake"
+	clientset "github.com/kubeware/messenger/client/clientset/versioned"
+	messengerv1alpha1 "github.com/kubeware/messenger/client/clientset/versioned/typed/messenger/v1alpha1"
+	fakemessengerv1alpha1 "github.com/kubeware/messenger/client/clientset/versioned/typed/messenger/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

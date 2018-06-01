@@ -44,7 +44,7 @@
         }
       }
     },
-    "/apis/messenger.appscode.com/": {
+    "/apis/messenger.kubeware.io/": {
       "get": {
         "description": "get information of a group",
         "consumes": [
@@ -61,9 +61,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom"
+          "messengerKubewareIo"
         ],
-        "operationId": "getMessengerAppscodeComAPIGroup",
+        "operationId": "getMessengerKubewareIoAPIGroup",
         "responses": {
           "200": {
             "description": "OK",
@@ -74,7 +74,7 @@
         }
       }
     },
-    "/apis/messenger.appscode.com/v1alpha1/": {
+    "/apis/messenger.kubeware.io/v1alpha1/": {
       "get": {
         "description": "get available resources",
         "consumes": [
@@ -91,9 +91,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "getMessengerAppscodeComV1alpha1APIResources",
+        "operationId": "getMessengerKubewareIoV1alpha1APIResources",
         "responses": {
           "200": {
             "description": "OK",
@@ -104,7 +104,7 @@
         }
       }
     },
-    "/apis/messenger.appscode.com/v1alpha1/namespaces/{namespace}/notifiers": {
+    "/apis/messenger.kubeware.io/v1alpha1/namespaces/{namespace}/notifiers": {
       "get": {
         "description": "list or watch objects of kind Notifier",
         "consumes": [
@@ -121,9 +121,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "listMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "listMessengerKubewareIoV1alpha1NamespacedNotifier",
         "parameters": [
           {
             "uniqueItems": true,
@@ -186,13 +186,13 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierList"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierList"
             }
           }
         },
         "x-kubernetes-action": "list",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -211,16 +211,16 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "createMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "createMessengerKubewareIoV1alpha1NamespacedNotifier",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         ],
@@ -228,25 +228,25 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           },
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           },
           "202": {
             "description": "Accepted",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         },
         "x-kubernetes-action": "post",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -265,9 +265,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "deleteMessengerAppscodeComV1alpha1CollectionNamespacedNotifier",
+        "operationId": "deleteMessengerKubewareIoV1alpha1CollectionNamespacedNotifier",
         "parameters": [
           {
             "uniqueItems": true,
@@ -336,7 +336,7 @@
         },
         "x-kubernetes-action": "deletecollection",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -359,7 +359,7 @@
         }
       ]
     },
-    "/apis/messenger.appscode.com/v1alpha1/namespaces/{namespace}/notifiers/{name}": {
+    "/apis/messenger.kubeware.io/v1alpha1/namespaces/{namespace}/notifiers/{name}": {
       "get": {
         "description": "read the specified Notifier",
         "consumes": [
@@ -374,20 +374,20 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "readMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "readMessengerKubewareIoV1alpha1NamespacedNotifier",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         },
         "x-kubernetes-action": "get",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -406,16 +406,16 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "replaceMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "replaceMessengerKubewareIoV1alpha1NamespacedNotifier",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         ],
@@ -423,19 +423,19 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           },
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         },
         "x-kubernetes-action": "put",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -454,9 +454,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "deleteMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "deleteMessengerKubewareIoV1alpha1NamespacedNotifier",
         "parameters": [
           {
             "name": "body",
@@ -498,7 +498,7 @@
         },
         "x-kubernetes-action": "delete",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -519,9 +519,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "patchMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "patchMessengerKubewareIoV1alpha1NamespacedNotifier",
         "parameters": [
           {
             "name": "body",
@@ -536,13 +536,13 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
             }
           }
         },
         "x-kubernetes-action": "patch",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -573,7 +573,7 @@
         }
       ]
     },
-    "/apis/messenger.appscode.com/v1alpha1/notifiers": {
+    "/apis/messenger.kubeware.io/v1alpha1/notifiers": {
       "get": {
         "description": "list or watch objects of kind Notifier",
         "consumes": [
@@ -590,20 +590,20 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "listMessengerAppscodeComV1alpha1NotifierForAllNamespaces",
+        "operationId": "listMessengerKubewareIoV1alpha1NotifierForAllNamespaces",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierList"
+              "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierList"
             }
           }
         },
         "x-kubernetes-action": "list",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -674,7 +674,7 @@
         }
       ]
     },
-    "/apis/messenger.appscode.com/v1alpha1/watch/namespaces/{namespace}/notifiers": {
+    "/apis/messenger.kubeware.io/v1alpha1/watch/namespaces/{namespace}/notifiers": {
       "get": {
         "description": "watch individual changes to a list of Notifier",
         "consumes": [
@@ -691,9 +691,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "watchMessengerAppscodeComV1alpha1NamespacedNotifierList",
+        "operationId": "watchMessengerKubewareIoV1alpha1NamespacedNotifierList",
         "responses": {
           "200": {
             "description": "OK",
@@ -704,7 +704,7 @@
         },
         "x-kubernetes-action": "watchlist",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -783,7 +783,7 @@
         }
       ]
     },
-    "/apis/messenger.appscode.com/v1alpha1/watch/namespaces/{namespace}/notifiers/{name}": {
+    "/apis/messenger.kubeware.io/v1alpha1/watch/namespaces/{namespace}/notifiers/{name}": {
       "get": {
         "description": "watch changes to an object of kind Notifier",
         "consumes": [
@@ -800,9 +800,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "watchMessengerAppscodeComV1alpha1NamespacedNotifier",
+        "operationId": "watchMessengerKubewareIoV1alpha1NamespacedNotifier",
         "responses": {
           "200": {
             "description": "OK",
@@ -813,7 +813,7 @@
         },
         "x-kubernetes-action": "watch",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -900,7 +900,7 @@
         }
       ]
     },
-    "/apis/messenger.appscode.com/v1alpha1/watch/notifiers": {
+    "/apis/messenger.kubeware.io/v1alpha1/watch/notifiers": {
       "get": {
         "description": "watch individual changes to a list of Notifier",
         "consumes": [
@@ -917,9 +917,9 @@
           "https"
         ],
         "tags": [
-          "messengerAppscodeCom_v1alpha1"
+          "messengerKubewareIo_v1alpha1"
         ],
-        "operationId": "watchMessengerAppscodeComV1alpha1NotifierListForAllNamespaces",
+        "operationId": "watchMessengerKubewareIoV1alpha1NotifierListForAllNamespaces",
         "responses": {
           "200": {
             "description": "OK",
@@ -930,7 +930,7 @@
         },
         "x-kubernetes-action": "watchlist",
         "x-kubernetes-group-version-kind": {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
@@ -1003,7 +1003,7 @@
     }
   },
   "definitions": {
-    "com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier": {
+    "com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier": {
       "description": "Notifier defines a Notifier database.",
       "properties": {
         "apiVersion": {
@@ -1018,21 +1018,21 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
         },
         "spec": {
-          "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierSpec"
+          "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierSpec"
         },
         "status": {
-          "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierStatus"
+          "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierStatus"
         }
       },
       "x-kubernetes-group-version-kind": [
         {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Notifier"
         }
       ]
     },
-    "com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierList": {
+    "com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierList": {
       "properties": {
         "apiVersion": {
           "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
@@ -1042,7 +1042,7 @@
           "description": "Items is a list of Notifier TPR objects",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/com.github.appscode.messenger.apis.messenger.v1alpha1.Notifier"
+            "$ref": "#/definitions/com.github.kubeware.messenger.apis.messenger.v1alpha1.Notifier"
           }
         },
         "kind": {
@@ -1055,13 +1055,13 @@
       },
       "x-kubernetes-group-version-kind": [
         {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "NotifierList"
         }
       ]
     },
-    "com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierSpec": {
+    "com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierSpec": {
       "properties": {
         "replicas": {
           "description": "Number of instances to deploy for a Notifier database.",
@@ -1070,7 +1070,7 @@
         }
       }
     },
-    "com.github.appscode.messenger.apis.messenger.v1alpha1.NotifierStatus": {
+    "com.github.kubeware.messenger.apis.messenger.v1alpha1.NotifierStatus": {
       "properties": {
         "creationTime": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
@@ -1285,7 +1285,7 @@
           "kind": "DeleteOptions"
         },
         {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "DeleteOptions"
         }
@@ -1552,7 +1552,7 @@
           "kind": "Status"
         },
         {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "Status"
         }
@@ -1634,7 +1634,7 @@
           "kind": "WatchEvent"
         },
         {
-          "group": "messenger.appscode.com",
+          "group": "messenger.kubeware.io",
           "version": "v1alpha1",
           "kind": "WatchEvent"
         }

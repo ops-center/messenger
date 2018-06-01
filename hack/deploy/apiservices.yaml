@@ -2,12 +2,12 @@
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.admission.messenger.appscode.com
+  name: v1alpha1.admission.messenger.kubeware.io
   labels:
     app: messenger
 spec:
   caBundle: ${SERVICE_SERVING_CERT_CA}
-  group: admission.messenger.appscode.com
+  group: admission.messenger.kubeware.io
   groupPriorityMinimum: 1000
   versionPriority: 15
   service:
