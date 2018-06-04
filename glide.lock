@@ -1,5 +1,5 @@
 hash: 5750539fb4d63e4f9f93f50ec0eb6317cb0b68db2cf501dbc5fe4b459d7378f7
-updated: 2018-06-04T13:18:28.475821072+06:00
+updated: 2018-06-04T15:47:51.985411252+06:00
 imports:
 - name: bitbucket.org/atlassian/go-stride
   version: 78855f0a5d80b2683b11f3825a580a87e32a9f71
@@ -303,7 +303,7 @@ imports:
 - name: github.com/sirupsen/logrus
   version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
 - name: github.com/spf13/cobra
-  version: 615425954c3b0d9485a7027d4d451fdcdfdee84e
+  version: 1e58aa3361fd650121dceeedc399e7189c05674a
   subpackages:
   - doc
 - name: github.com/spf13/pflag
@@ -312,6 +312,8 @@ imports:
   vcs: git
 - name: github.com/ssor/bom
   version: 6386211fdfcf24c0bfbdaceafd02849ed9a8a509
+- name: github.com/tamalsaha/go-oneliners
+  version: 82a97ec58df4809a2bc57ebbbcc1e6a2feb78111
 - name: github.com/tbruyelle/hipchat-go
   version: 749fb9e14beb9995f677c101a754393cecb64b0f
   subpackages:
@@ -773,7 +775,7 @@ imports:
   - util/retry
   - util/workqueue
 - name: k8s.io/kube-openapi
-  version: a07b7bbb58e7fdc5144f8d7046331d29fc9ad3b3
+  version: 8a9b82f00b3a86eac24681da3f9fe6c34c01cea2
   subpackages:
   - pkg/builder
   - pkg/common

@@ -10,14 +10,16 @@ import (
 	"github.com/appscode/kubernetes-webhook-util/admission"
 	hooks "github.com/appscode/kubernetes-webhook-util/admission/v1beta1"
 	webhook "github.com/appscode/kubernetes-webhook-util/admission/v1beta1/generic"
-	"github.com/appscode/kutil/meta"
 	"github.com/appscode/kutil/tools/queue"
 	"github.com/golang/glog"
 	"github.com/kubeware/messenger/apis/messenger"
 	api "github.com/kubeware/messenger/apis/messenger/v1alpha1"
+	"github.com/tamalsaha/go-oneliners"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"github.com/appscode/kutil/meta"
+	"time"
 )
 
 func (c *MessengerController) NewNotifierWebhook() hooks.AdmissionHook {
@@ -43,7 +45,7 @@ func (c *MessengerController) NewNotifierWebhook() hooks.AdmissionHook {
 }
 func (c *MessengerController) initNotificationWatcher() {
 	c.notificationInformer = c.messengerInformerFactory.Messenger().V1alpha1().Notifications().Informer()
-	c.notificationQueue = queue.New(api.ResourceKindNotifier, c.MaxNumRequeues, c.NumThreads, c.reconcileNotification)
+	c.notificationQueue = queue.New(api.ResourceKindNotification, c.MaxNumRequeues, c.NumThreads, c.reconcileNotification)
 	c.notificationInformer.AddEventHandler(queue.DefaultEventHandler(c.notificationQueue.GetQueue()))
 	c.notificationLister = c.messengerInformerFactory.Messenger().V1alpha1().Notifications().Lister()
 }
@@ -61,8 +63,15 @@ func (c *MessengerController) reconcileNotification(key string) error {
 		glog.Infof("Sync/Add/Update for Notifier %s\n", key)
 
 		n := obj.(*api.Notification)
-		fmt.Println(n.Name)
-		c.send(n)
+		fmt.Println(">>>>>>>>>>>> notification crd obj name", n.Name)
+		oneliners.PrettyJson(*n, "notificationCrdObj")
+		err := c.send(n)
+		if err != nil {
+			n.Status.ErrorMessage = fmt.Sprintf("Sending error: %v", err)
+			glog.Errorf(n.Status.ErrorMessage)
+		} else {
+			n.Status.SentTimestamp = &metav1.Timestamp{Seconds: int64(time.Now().Second())}
+		}
 	}
 	return nil
 }
@@ -72,10 +81,14 @@ func (c *MessengerController) deleteMessengerNotifier(repository *api.Notifier) 
 }
 
 func (c *MessengerController) send(notification *api.Notification) error {
-	notifierObj, err := c.messengerClient.MessengerV1alpha1().Notifiers(meta.Namespace()).Get(notification.Spec.Service, metav1.GetOptions{})
+	fmt.Println(">>>>>>>>>>>>> Send().......")
+	notifierObj, err := c.messengerClient.MessengerV1alpha1().Notifiers(notification.Namespace).Get(notification.Spec.Service, metav1.GetOptions{})
 	if err != nil {
+		fmt.Println(">>>>>>>", )
 		return err
 	}
+
+	oneliners.PrettyJson(*notifierObj, "notifierCrdObj")
 
 	notifierCred, err := c.getLoader(notifierObj.Spec.CredentialSecretName)
 	if err != nil {

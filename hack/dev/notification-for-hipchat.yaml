@@ -1,7 +1,7 @@
 apiVersion: messenger.kubeware.io/v1alpha1
 kind: Notification
 metadata:
- generateName: notify-hipchat
+ generateName: notify-hipchat-
 #ref:
 # kind: ClusterMessengerService
 # name: email-notifier
