@@ -34,6 +34,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Notifier{},
 		&NotifierList{},
+		&Notification{},
+		&NotificationList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

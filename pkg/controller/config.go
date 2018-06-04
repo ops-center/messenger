@@ -55,7 +55,7 @@ func (c *Config) New() (*MessengerController, error) {
 		return nil, err
 	}
 
-	ctrl.initNotifierWatcher()
+	ctrl.initNotificationWatcher()
 
 	return ctrl, nil
 }

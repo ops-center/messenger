@@ -32,6 +32,7 @@ func generateCRDDefinitions() {
 
 	crds := []*crd_api.CustomResourceDefinition{
 		v1alpha1.Notifier{}.CustomResourceDefinition(),
+		v1alpha1.Notification{}.CustomResourceDefinition(),
 	}
 	for _, crd := range crds {
 		crdutils.MarshallCrd(f, crd, "yaml")
@@ -70,6 +71,7 @@ func generateSwaggerJson() {
 		},
 		Resources: []schema.GroupVersionResource{
 			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceNotifiers),
+			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceNotifications),
 		},
 	})
 	if err != nil {

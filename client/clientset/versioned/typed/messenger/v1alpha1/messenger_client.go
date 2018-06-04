@@ -27,12 +27,17 @@ import (
 
 type MessengerV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	NotificationsGetter
 	NotifiersGetter
 }
 
 // MessengerV1alpha1Client is used to interact with features provided by the messenger.kubeware.io group.
 type MessengerV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *MessengerV1alpha1Client) Notifications(namespace string) NotificationInterface {
+	return newNotifications(c, namespace)
 }
 
 func (c *MessengerV1alpha1Client) Notifiers(namespace string) NotifierInterface {

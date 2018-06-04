@@ -67,6 +67,7 @@ func (o MessengerOptions) Config() (*server.MessengerConfig, error) {
 	serverConfig.OpenAPIConfig.IgnorePrefixes = []string{
 		"/swaggerapi",
 		"/apis/admission.messenger.kubeware.io/v1alpha1/notifiers",
+		//"/apis/admission.messenger.kubeware.io/v1alpha1/notifications",
 	}
 
 	extraConfig := controller.NewConfig(serverConfig.ClientConfig)

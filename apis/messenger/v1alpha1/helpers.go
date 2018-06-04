@@ -26,3 +26,24 @@ func (p Notifier) CustomResourceDefinition() *crd_api.CustomResourceDefinition {
 func (p Notifier) IsValid() error {
 	return nil
 }
+
+func (p Notification) CustomResourceDefinition() *crd_api.CustomResourceDefinition {
+	return crdutils.NewCustomResourceDefinition(crdutils.Config{
+		Group:         SchemeGroupVersion.Group,
+		Version:       SchemeGroupVersion.Version,
+		Plural:        ResourceNotifications,
+		Singular:      ResourceNotification,
+		Kind:          ResourceKindNotification,
+		ResourceScope: string(apiextensions.NamespaceScoped),
+		Labels: crdutils.Labels{
+			LabelsMap: map[string]string{"app": "messenger"},
+		},
+		SpecDefinitionName:    "github.com/kubeware/messenger/apis/messenger/v1alpha1.Notification",
+		EnableValidation:      true,
+		GetOpenAPIDefinitions: GetOpenAPIDefinitions,
+	})
+}
+
+func (p Notification) IsValid() error {
+	return nil
+}

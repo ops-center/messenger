@@ -28,6 +28,10 @@ type FakeMessengerV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeMessengerV1alpha1) Notifications(namespace string) v1alpha1.NotificationInterface {
+	return &FakeNotifications{c, namespace}
+}
+
 func (c *FakeMessengerV1alpha1) Notifiers(namespace string) v1alpha1.NotifierInterface {
 	return &FakeNotifiers{c, namespace}
 }
