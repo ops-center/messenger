@@ -28,12 +28,12 @@ type FakeMessengerV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeMessengerV1alpha1) Notifications(namespace string) v1alpha1.NotificationInterface {
-	return &FakeNotifications{c, namespace}
+func (c *FakeMessengerV1alpha1) Messages(namespace string) v1alpha1.MessageInterface {
+	return &FakeMessages{c, namespace}
 }
 
-func (c *FakeMessengerV1alpha1) Notifiers(namespace string) v1alpha1.NotifierInterface {
-	return &FakeNotifiers{c, namespace}
+func (c *FakeMessengerV1alpha1) MessagingServices(namespace string) v1alpha1.MessagingServiceInterface {
+	return &FakeMessagingServices{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

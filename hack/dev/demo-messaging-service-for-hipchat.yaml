@@ -1,9 +1,11 @@
 apiVersion: messenger.kubeware.io/v1alpha1
-kind: Notifier
+#kind: Notifier
+kind: MessagingService
 metadata:
   name: hipchat-ops-room
 spec:
-  notifier: hipchat
+  drive: hipchat
+#  notifier: hipchat
   to:
   - ops-alerts
   credentialSecretName: notifier-config

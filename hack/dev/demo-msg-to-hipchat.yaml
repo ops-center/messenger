@@ -1,5 +1,5 @@
 apiVersion: messenger.kubeware.io/v1alpha1
-kind: Notification
+kind: Message
 metadata:
  generateName: notify-hipchat-
 #ref:
@@ -13,6 +13,6 @@ spec:
 #  sms:
 #status:
 #  sentTimestamp:
-#  error:
+#  errorMessage:
 #
 #CRD - GC:

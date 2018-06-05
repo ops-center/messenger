@@ -31,59 +31,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// NotificationInformer provides access to a shared informer and lister for
-// Notifications.
-type NotificationInformer interface {
+// MessageInformer provides access to a shared informer and lister for
+// Messages.
+type MessageInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.NotificationLister
+	Lister() v1alpha1.MessageLister
 }
 
-type notificationInformer struct {
+type messageInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewNotificationInformer constructs a new informer for Notification type.
+// NewMessageInformer constructs a new informer for Message type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewNotificationInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredNotificationInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewMessageInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredMessageInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredNotificationInformer constructs a new informer for Notification type.
+// NewFilteredMessageInformer constructs a new informer for Message type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredNotificationInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredMessageInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.MessengerV1alpha1().Notifications(namespace).List(options)
+				return client.MessengerV1alpha1().Messages(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.MessengerV1alpha1().Notifications(namespace).Watch(options)
+				return client.MessengerV1alpha1().Messages(namespace).Watch(options)
 			},
 		},
-		&messenger_v1alpha1.Notification{},
+		&messenger_v1alpha1.Message{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *notificationInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredNotificationInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *messageInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredMessageInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *notificationInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&messenger_v1alpha1.Notification{}, f.defaultInformer)
+func (f *messageInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&messenger_v1alpha1.Message{}, f.defaultInformer)
 }
 
-func (f *notificationInformer) Lister() v1alpha1.NotificationLister {
-	return v1alpha1.NewNotificationLister(f.Informer().GetIndexer())
+func (f *messageInformer) Lister() v1alpha1.MessageLister {
+	return v1alpha1.NewMessageLister(f.Informer().GetIndexer())
 }

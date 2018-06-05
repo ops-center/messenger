@@ -20,6 +20,7 @@ type config struct {
 	MaxNumRequeues    int
 	NumThreads        int
 	ResyncPeriod      time.Duration
+	GarbageCollectTime time.Duration
 }
 
 type Config struct {
@@ -55,7 +56,7 @@ func (c *Config) New() (*MessengerController, error) {
 		return nil, err
 	}
 
-	ctrl.initNotificationWatcher()
+	ctrl.initMessageWatcher()
 
 	return ctrl, nil
 }

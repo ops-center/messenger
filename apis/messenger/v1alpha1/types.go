@@ -5,13 +5,13 @@ import (
 )
 
 const (
-	ResourceKindNotifier = "Notifier"
-	ResourceNotifier     = "notifier"
-	ResourceNotifiers    = "notifiers"
+	ResourceKindMessagingService = "MessagingService"
+	ResourceMessagingService     = "messagingservice"
+	ResourceMessagingServices    = "messagingservices"
 
-	ResourceKindNotification = "Notification"
-	ResourceNotification     = "notification"
-	ResourceNotifications    = "notifications"
+	ResourceKindMessage = "Message"
+	ResourceMessage     = "message"
+	ResourceMessages    = "messages"
 )
 
 // +genclient
@@ -19,14 +19,14 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Notifier defines a Notifier database.
-type Notifier struct {
+type MessagingService struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              NotifierSpec   `json:"spec,omitempty"`
-	Status            NotifierStatus `json:"status,omitempty"`
+	Spec              MessagingServiceSpec   `json:"spec,omitempty"`
+	//Status            NotifierStatus `json:"status,omitempty"`
 }
 
-type NotifierSpec struct {
+type MessagingServiceSpec struct {
 	// Number of instances to deploy for a Notifier database.
 	Replicas *int32 `json:"replicas,omitempty"`
 
@@ -34,54 +34,54 @@ type NotifierSpec struct {
 	To []string `json:"to,omitempty"`
 
 	// How this notification will be sent
-	Notifier string `json:"notifier,omitempty"`
+	Drive string `json:"drive,omitempty"`
 
 	// Secret name to which credential data is provided to send notification
 	CredentialSecretName string `json:"credentialSecretName,omitempty"`
 }
 
-type NotifierStatus struct {
-	CreationTime *metav1.Time `json:"creationTime,omitempty"`
-	Reason       string       `json:"reason,omitempty"`
-}
+//type NotifierStatus struct {
+//	CreationTime *metav1.Time `json:"creationTime,omitempty"`
+//	Reason       string       `json:"reason,omitempty"`
+//}
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type NotifierList struct {
+type MessagingServiceList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of Notifier TPR objects
-	Items []Notifier `json:"items,omitempty"`
+	// Items is a list of MessagingService TPR objects
+	Items []MessagingService `json:"items,omitempty"`
 }
 
 // +genclient
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type Notification struct {
+type Message struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              NotificationSpec   `json:"spec,omitempty"`
-	Status            NotificationStatus `json:"status,omitempty"`
+	Spec              MessageSpec   `json:"spec,omitempty"`
+	Status            MessageStatus `json:"status,omitempty"`
 }
 
-type NotificationSpec struct {
+type MessageSpec struct {
 	Service string `json:"service,omitempty"`
 	Message string `json:"message,omitempty"`
 	Email   string `json:"email,omitempty"`
 	Chat    string `json:"chat,omitempty"`
 }
 
-type NotificationStatus struct {
-	SentTimestamp *metav1.Timestamp `json:"sentTimestamp,omitempty"`
+type MessageStatus struct {
+	SentTimestamp *metav1.Time `json:"sentTimestamp,omitempty"`
 	ErrorMessage  string            `json:"errorMessage,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type NotificationList struct {
+type MessageList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	// Items is a list of Notification TPR objects
-	Items []Notification `json:"items,omitempty"`
+	Items []Message `json:"items,omitempty"`
 }

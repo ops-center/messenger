@@ -31,7 +31,7 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.Notification": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.Message": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
@@ -56,21 +56,21 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 						},
 						"spec": {
 							SchemaProps: spec.SchemaProps{
-								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationSpec"),
+								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageSpec"),
 							},
 						},
 						"status": {
 							SchemaProps: spec.SchemaProps{
-								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationStatus"),
+								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageStatus"),
 							},
 						},
 					},
 				},
 			},
 			Dependencies: []string{
-				"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationSpec", "github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+				"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageSpec", "github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationList": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageList": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
@@ -100,7 +100,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 								Items: &spec.SchemaOrArray{
 									Schema: &spec.Schema{
 										SchemaProps: spec.SchemaProps{
-											Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.Notification"),
+											Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.Message"),
 										},
 									},
 								},
@@ -110,9 +110,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 				},
 			},
 			Dependencies: []string{
-				"github.com/kubeware/messenger/apis/messenger/v1alpha1.Notification", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+				"github.com/kubeware/messenger/apis/messenger/v1alpha1.Message", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationSpec": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageSpec": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
@@ -145,13 +145,13 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 			},
 			Dependencies: []string{},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotificationStatus": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessageStatus": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
 						"sentTimestamp": {
 							SchemaProps: spec.SchemaProps{
-								Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Timestamp"),
+								Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 							},
 						},
 						"errorMessage": {
@@ -164,9 +164,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 				},
 			},
 			Dependencies: []string{
-				"k8s.io/apimachinery/pkg/apis/meta/v1.Timestamp"},
+				"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.Notifier": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingService": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Description: "Notifier defines a Notifier database.",
@@ -192,21 +192,16 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 						},
 						"spec": {
 							SchemaProps: spec.SchemaProps{
-								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierSpec"),
-							},
-						},
-						"status": {
-							SchemaProps: spec.SchemaProps{
-								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierStatus"),
+								Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingServiceSpec"),
 							},
 						},
 					},
 				},
 			},
 			Dependencies: []string{
-				"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierSpec", "github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+				"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingServiceSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierList": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingServiceList": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
@@ -231,12 +226,12 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 						},
 						"items": {
 							SchemaProps: spec.SchemaProps{
-								Description: "Items is a list of Notifier TPR objects",
+								Description: "Items is a list of MessagingService TPR objects",
 								Type:        []string{"array"},
 								Items: &spec.SchemaOrArray{
 									Schema: &spec.Schema{
 										SchemaProps: spec.SchemaProps{
-											Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.Notifier"),
+											Ref: ref("github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingService"),
 										},
 									},
 								},
@@ -246,9 +241,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 				},
 			},
 			Dependencies: []string{
-				"github.com/kubeware/messenger/apis/messenger/v1alpha1.Notifier", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+				"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingService", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierSpec": {
+		"github.com/kubeware/messenger/apis/messenger/v1alpha1.MessagingServiceSpec": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Properties: map[string]spec.Schema{
@@ -273,7 +268,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 								},
 							},
 						},
-						"notifier": {
+						"drive": {
 							SchemaProps: spec.SchemaProps{
 								Description: "How this notification will be sent",
 								Type:        []string{"string"},
@@ -291,27 +286,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 				},
 			},
 			Dependencies: []string{},
-		},
-		"github.com/kubeware/messenger/apis/messenger/v1alpha1.NotifierStatus": {
-			Schema: spec.Schema{
-				SchemaProps: spec.SchemaProps{
-					Properties: map[string]spec.Schema{
-						"creationTime": {
-							SchemaProps: spec.SchemaProps{
-								Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
-							},
-						},
-						"reason": {
-							SchemaProps: spec.SchemaProps{
-								Type:   []string{"string"},
-								Format: "",
-							},
-						},
-					},
-				},
-			},
-			Dependencies: []string{
-				"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 		},
 		"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource": {
 			Schema: spec.Schema{

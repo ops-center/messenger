@@ -31,15 +31,15 @@ type MessengerController struct {
 	messengerInformerFactory messengerinformers.SharedInformerFactory
 
 	// Notification
-	notificationQueue    *queue.Worker
-	notificationInformer cache.SharedIndexInformer
-	notificationLister   messenger_listers.NotificationLister
+	messageQueue    *queue.Worker
+	messageInformer cache.SharedIndexInformer
+	messageLister   messenger_listers.MessageLister
 }
 
 func (c *MessengerController) ensureCustomResourceDefinitions() error {
 	crds := []*crd_api.CustomResourceDefinition{
-		api.Notifier{}.CustomResourceDefinition(),
-		api.Notification{}.CustomResourceDefinition(),
+		api.MessagingService{}.CustomResourceDefinition(),
+		api.Message{}.CustomResourceDefinition(),
 	}
 	return crdutils.RegisterCRDs(c.crdClient, crds)
 }
@@ -65,5 +65,6 @@ func (c *MessengerController) RunInformers(stopCh <-chan struct{}) {
 		}
 	}
 
-	c.notificationQueue.Run(stopCh)
+	go c.garbageCollect(stopCh, c.GarbageCollectTime)
+	c.messageQueue.Run(stopCh)
 }

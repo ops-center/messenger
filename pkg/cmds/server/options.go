@@ -17,6 +17,7 @@ type ExtraOptions struct {
 	QPS            float64
 	Burst          int
 	ResyncPeriod   time.Duration
+	GarbageCollectTime time.Duration
 }
 
 func NewExtraOptions() *ExtraOptions {
@@ -26,6 +27,7 @@ func NewExtraOptions() *ExtraOptions {
 		QPS:            100,
 		Burst:          100,
 		ResyncPeriod:   10 * time.Minute,
+		GarbageCollectTime: time.Hour,
 	}
 }
 
@@ -33,6 +35,7 @@ func (s *ExtraOptions) AddGoFlags(fs *flag.FlagSet) {
 	fs.Float64Var(&s.QPS, "qps", s.QPS, "The maximum QPS to the master from this client")
 	fs.IntVar(&s.Burst, "burst", s.Burst, "The maximum burst for throttle")
 	fs.DurationVar(&s.ResyncPeriod, "resync-period", s.ResyncPeriod, "If non-zero, will re-list this often. Otherwise, re-list will be delayed aslong as possible (until the upstream source closes the watch or times out.")
+	fs.DurationVar(&s.GarbageCollectTime, "gc-time", s.GarbageCollectTime, "The time after when crds are garbage collected")
 }
 
 func (s *ExtraOptions) AddFlags(fs *pflag.FlagSet) {
@@ -47,6 +50,7 @@ func (s *ExtraOptions) ApplyTo(cfg *controller.Config) error {
 	cfg.MaxNumRequeues = s.MaxNumRequeues
 	cfg.NumThreads = s.NumThreads
 	cfg.ResyncPeriod = s.ResyncPeriod
+	cfg.GarbageCollectTime = s.GarbageCollectTime
 
 	cfg.ClientConfig.QPS = float32(s.QPS)
 	cfg.ClientConfig.Burst = s.Burst

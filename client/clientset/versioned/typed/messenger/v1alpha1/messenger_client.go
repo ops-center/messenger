@@ -27,8 +27,8 @@ import (
 
 type MessengerV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	NotificationsGetter
-	NotifiersGetter
+	MessagesGetter
+	MessagingServicesGetter
 }
 
 // MessengerV1alpha1Client is used to interact with features provided by the messenger.kubeware.io group.
@@ -36,12 +36,12 @@ type MessengerV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *MessengerV1alpha1Client) Notifications(namespace string) NotificationInterface {
-	return newNotifications(c, namespace)
+func (c *MessengerV1alpha1Client) Messages(namespace string) MessageInterface {
+	return newMessages(c, namespace)
 }
 
-func (c *MessengerV1alpha1Client) Notifiers(namespace string) NotifierInterface {
-	return newNotifiers(c, namespace)
+func (c *MessengerV1alpha1Client) MessagingServices(namespace string) MessagingServiceInterface {
+	return newMessagingServices(c, namespace)
 }
 
 // NewForConfig creates a new MessengerV1alpha1Client for the given config.
