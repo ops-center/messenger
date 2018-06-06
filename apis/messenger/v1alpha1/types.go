@@ -70,6 +70,7 @@ type MessageSpec struct {
 	Message string `json:"message,omitempty"`
 	Email   string `json:"email,omitempty"`
 	Chat    string `json:"chat,omitempty"`
+	Sms string `json:"sms,omitempty"`
 }
 
 type MessageStatus struct {

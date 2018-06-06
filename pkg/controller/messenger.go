@@ -14,7 +14,6 @@ import (
 	"github.com/golang/glog"
 	"github.com/kubeware/messenger/apis/messenger"
 	api "github.com/kubeware/messenger/apis/messenger/v1alpha1"
-	"github.com/tamalsaha/go-oneliners"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -59,13 +58,14 @@ func (c *MessengerController) reconcileMessage(key string) error {
 	}
 
 	if !exist {
-		glog.Warningf("Notifier %s does not exist anymore\n", key)
+		glog.Warningf("Message %s does not exist anymore\n", key)
 	} else {
-		glog.Infof("Sync/Add/Update for Notifier %s\n", key)
+		glog.Infof("Sync/Add/Update for Message %s\n", key)
 
 		msg := obj.(*api.Message)
-		fmt.Println(">>>>>>>>>>>> Message crd obj name", msg.Name)
-		oneliners.PrettyJson(*msg, "MessageCrdObj")
+		fmt.Println("Message name", msg.Name)
+		glog.Infoln("Message is sending...")
+
 		msgStatus := &api.MessageStatus{}
 		err := c.send(msg)
 		if err != nil {
@@ -92,14 +92,10 @@ func (c *MessengerController) deleteMessengerNotifier(repository *api.Message) e
 }
 
 func (c *MessengerController) send(msg *api.Message) error {
-	fmt.Println(">>>>>>>>>>>>> Send().......")
 	messagingService, err := c.messengerClient.MessengerV1alpha1().MessagingServices(msg.Namespace).Get(msg.Spec.Service, metav1.GetOptions{})
 	if err != nil {
-		fmt.Println(">>>>>>>", )
 		return err
 	}
-
-	oneliners.PrettyJson(*messagingService, "messagingService")
 
 	cred, err := c.getLoader(messagingService.Spec.CredentialSecretName)
 	if err != nil {
@@ -120,7 +116,7 @@ func (c *MessengerController) send(msg *api.Message) error {
 			Send()
 	case notify.BySMS:
 		return n.To(messagingService.Spec.To[0], messagingService.Spec.To[1:]...).
-			WithBody(msg.Spec.Email).
+			WithBody(msg.Spec.Sms).
 			Send()
 	case notify.ByChat:
 		return n.To(messagingService.Spec.To[0], messagingService.Spec.To[1:]...).
