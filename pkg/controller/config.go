@@ -15,11 +15,11 @@ import (
 )
 
 type config struct {
-	MessengerImageTag string
-	DockerRegistry    string
-	MaxNumRequeues    int
-	NumThreads        int
-	ResyncPeriod      time.Duration
+	MessengerImageTag  string
+	DockerRegistry     string
+	MaxNumRequeues     int
+	NumThreads         int
+	ResyncPeriod       time.Duration
 	GarbageCollectTime time.Duration
 }
 

@@ -12,21 +12,21 @@ import (
 )
 
 type ExtraOptions struct {
-	MaxNumRequeues int
-	NumThreads     int
-	QPS            float64
-	Burst          int
-	ResyncPeriod   time.Duration
+	MaxNumRequeues     int
+	NumThreads         int
+	QPS                float64
+	Burst              int
+	ResyncPeriod       time.Duration
 	GarbageCollectTime time.Duration
 }
 
 func NewExtraOptions() *ExtraOptions {
 	return &ExtraOptions{
-		MaxNumRequeues: 5,
-		NumThreads:     2,
-		QPS:            100,
-		Burst:          100,
-		ResyncPeriod:   10 * time.Minute,
+		MaxNumRequeues:     5,
+		NumThreads:         2,
+		QPS:                100,
+		Burst:              100,
+		ResyncPeriod:       10 * time.Minute,
 		GarbageCollectTime: time.Hour,
 	}
 }

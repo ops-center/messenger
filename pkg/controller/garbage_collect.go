@@ -1,9 +1,10 @@
 package controller
 
 import (
+	"time"
+
 	"github.com/golang/glog"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"time"
 )
 
 func (c *MessengerController) garbageCollect(stopCh <-chan struct{}, gcTime time.Duration) {
@@ -37,7 +38,6 @@ func (c *MessengerController) garbageCollect(stopCh <-chan struct{}, gcTime time
 				break
 			}
 		}
-
 
 		time.Sleep(time.Minute)
 	}

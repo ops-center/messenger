@@ -22,7 +22,7 @@ const (
 type MessagingService struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              MessagingServiceSpec   `json:"spec,omitempty"`
+	Spec              MessagingServiceSpec `json:"spec,omitempty"`
 	//Status            NotifierStatus `json:"status,omitempty"`
 }
 
@@ -70,12 +70,12 @@ type MessageSpec struct {
 	Message string `json:"message,omitempty"`
 	Email   string `json:"email,omitempty"`
 	Chat    string `json:"chat,omitempty"`
-	Sms string `json:"sms,omitempty"`
+	Sms     string `json:"sms,omitempty"`
 }
 
 type MessageStatus struct {
 	SentTimestamp *metav1.Time `json:"sentTimestamp,omitempty"`
-	ErrorMessage  string            `json:"errorMessage,omitempty"`
+	ErrorMessage  string       `json:"errorMessage,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
