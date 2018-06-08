@@ -6,14 +6,14 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-
 	shell "github.com/codeskyblue/go-sh"
 	"github.com/kubeware/messenger/pkg/cmds/server"
-	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	. "github.com/onsi/ginkgo"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	kapi "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1beta1"
+
 )
 
 func (f *Framework) NewMessengerOptions(kubeConfigPath string, extraOptions *server.ExtraOptions) *server.MessengerOptions {
@@ -33,15 +33,16 @@ func (f *Framework) NewMessengerOptions(kubeConfigPath string, extraOptions *ser
 
 func (f *Framework) StartAPIServerAndOperator(kubeConfigPath string, extraOptions *server.ExtraOptions) {
 	defer GinkgoRecover()
+
 	sh := shell.NewSession()
 	args := []interface{}{"--namespace", f.Namespace()}
 	cmd := filepath.Join("..", "..", "hack", "dev", "setup-server.sh")
 
-	By("Creating API server and webhook stuffs")
+	By("Creating API server and webhook stuffs...")
 	err := sh.Command(cmd, args...).Run()
 	Expect(err).ShouldNot(HaveOccurred())
 
-	By("Starting Server and Operator")
+	By("Starting Server and Operator...")
 	stopCh := genericapiserver.SetupSignalHandler()
 	opts := f.NewMessengerOptions(kubeConfigPath, extraOptions)
 	err = opts.Run(stopCh)

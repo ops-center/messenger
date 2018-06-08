@@ -11,7 +11,6 @@ import (
 	"github.com/appscode/kubernetes-webhook-util/admission"
 	hooks "github.com/appscode/kubernetes-webhook-util/admission/v1beta1"
 	webhook "github.com/appscode/kubernetes-webhook-util/admission/v1beta1/generic"
-	"github.com/appscode/kutil/meta"
 	"github.com/appscode/kutil/tools/queue"
 	"github.com/golang/glog"
 	"github.com/kubeware/messenger/apis/messenger"
@@ -27,18 +26,18 @@ func (c *MessengerController) NewNotifierWebhook() hooks.AdmissionHook {
 		schema.GroupVersionResource{
 			Group:    "admission.messenger.kubeware.io",
 			Version:  "v1alpha1",
-			Resource: api.ResourceMessagingServices,
+			Resource: api.ResourceMessages,
 		},
-		api.ResourceMessagingService,
+		api.ResourceMessage,
 		[]string{messenger.GroupName},
-		api.SchemeGroupVersion.WithKind(api.ResourceKindMessagingService),
+		api.SchemeGroupVersion.WithKind(api.ResourceKindMessage),
 		nil,
 		&admission.ResourceHandlerFuncs{
 			CreateFunc: func(obj runtime.Object) (runtime.Object, error) {
-				return nil, obj.(*api.MessagingService).IsValid()
+				return nil, obj.(*api.Message).IsValid()
 			},
 			UpdateFunc: func(oldObj, newObj runtime.Object) (runtime.Object, error) {
-				return nil, newObj.(*api.MessagingService).IsValid()
+				return nil, newObj.(*api.Message).IsValid()
 			},
 		},
 	)
@@ -101,7 +100,7 @@ func (c *MessengerController) send(msg *api.Message) error {
 		return err
 	}
 
-	cred, err := c.getLoader(messagingService.Spec.CredentialSecretName)
+	cred, err := c.getLoader(messagingService.Spec.CredentialSecretName, messagingService.Namespace)
 	if err != nil {
 		return err
 	}
@@ -135,18 +134,19 @@ func (c *MessengerController) send(msg *api.Message) error {
 	return nil
 }
 
-func (c *MessengerController) getLoader(credentialSecretName string) (envconfig.LoaderFunc, error) {
+func (c *MessengerController) getLoader(credentialSecretName, namespace string) (envconfig.LoaderFunc, error) {
 	if credentialSecretName == "" {
 		return func(key string) (string, bool) {
 			return "", false
 		}, nil
 	}
 	cfg, err := c.kubeClient.CoreV1().
-		Secrets(meta.Namespace()).
+		Secrets(namespace).
 		Get(credentialSecretName, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
+
 	return func(key string) (value string, found bool) {
 		var bytes []byte
 		bytes, found = cfg.Data[key]

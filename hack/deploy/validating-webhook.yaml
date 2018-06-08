@@ -5,12 +5,12 @@ metadata:
   labels:
     app: messenger
 webhooks:
-- name: notifier.admission.messenger.kubeware.io
+- name: message.admission.messenger.kubeware.io
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/admission.messenger.kubeware.io/v1alpha1/notifiers
+      path: /apis/admission.messenger.kubeware.io/v1alpha1/messages
     caBundle: ${KUBE_CA}
   rules:
   - operations:

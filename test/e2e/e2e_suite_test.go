@@ -13,6 +13,13 @@ import (
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes"
 	ka "k8s.io/kube-aggregator/pkg/client/clientset_generated/clientset"
+	cs "github.com/kubeware/messenger/client/clientset/versioned"
+	"github.com/kubeware/messenger/client/clientset/versioned/scheme"
+	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
+	"k8s.io/kubernetes/pkg/api/legacyscheme"
+	crd_cs "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1beta1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 )
 
 const (
@@ -32,16 +39,25 @@ func TestE2e(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
+	scheme.AddToScheme(clientsetscheme.Scheme)
+	scheme.AddToScheme(legacyscheme.Scheme)
+
 	clientConfig, err := clientcmd.BuildConfigFromContext(options.KubeConfig, options.KubeContext)
 	Expect(err).NotTo(HaveOccurred())
 
 	kubeClient, err := kubernetes.NewForConfig(clientConfig)
 	Expect(err).NotTo(HaveOccurred())
 
+	messengerClient, err := cs.NewForConfig(clientConfig)
+	Expect(err).NotTo(HaveOccurred())
+
+	crdClient, err := crd_cs.NewForConfig(clientConfig)
+	Expect(err).NotTo(HaveOccurred())
+
 	kaClient, err := ka.NewForConfig(clientConfig)
 	Expect(err).NotTo(HaveOccurred())
 
-	root = framework.New(kubeClient, kaClient, options.StartAPIServer, clientConfig)
+	root = framework.New(kubeClient, messengerClient, crdClient, kaClient, options.StartAPIServer, clientConfig)
 	err = root.CreateNamespace()
 	Expect(err).NotTo(HaveOccurred())
 	By("Using test namespace " + root.Namespace() + "...")
@@ -59,6 +75,21 @@ var _ = AfterSuite(func() {
 		root.KubeClient.CoreV1().Endpoints(root.Namespace()).Delete("messenger-local-apiserver", meta.DeleteInBackground())
 		root.KubeClient.CoreV1().Services(root.Namespace()).Delete("messenger-local-apiserver", meta.DeleteInBackground())
 		root.KAClient.ApiregistrationV1beta1().APIServices().Delete("v1alpha1.admission.messenger.kubeware.io", meta.DeleteInBackground())
+		root.KAClient.ApiregistrationV1beta1().APIServices().Delete("v1alpha1.messenger.kubeware.io", meta.DeleteInBackground())
 	}
+
+	By("Removing CRD group...")
+	crds, err := root.CRDClient.CustomResourceDefinitions().List(metav1.ListOptions{
+		LabelSelector:labels.Set{
+			"app": "messenger",
+		}.String(),
+	})
+	Expect(err).NotTo(HaveOccurred())
+	for _, crd := range crds.Items {
+		err := root.CRDClient.CustomResourceDefinitions().Delete(crd.Name, &metav1.DeleteOptions{})
+		Expect(err).NotTo(HaveOccurred())
+	}
+
+	By("Deleting Namespace...")
 	root.DeleteNamespace()
 })

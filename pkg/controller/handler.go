@@ -2,7 +2,6 @@ package controller
 
 import (
 	api "github.com/kubeware/messenger/apis/messenger/v1alpha1"
-
 )
 
 func (c *MessengerController) enqueueUpdate(oldObj, newObj interface{}) bool {

@@ -66,7 +66,8 @@ func (o MessengerOptions) Config() (*server.MessengerConfig, error) {
 	serverConfig.OpenAPIConfig.Info.Version = v1alpha1.SchemeGroupVersion.Version
 	serverConfig.OpenAPIConfig.IgnorePrefixes = []string{
 		"/swaggerapi",
-		"/apis/admission.messenger.kubeware.io/v1alpha1/messagingservices",
+		//"/apis/admission.messenger.kubeware.io/v1alpha1/messagingservices",
+		"/apis/admission.messenger.kubeware.io/v1alpha1/messages",
 		//"/apis/admission.messenger.kubeware.io/v1alpha1/notifiers",
 		//"/apis/admission.messenger.kubeware.io/v1alpha1/notifications",
 	}

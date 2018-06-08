@@ -5,8 +5,6 @@ import(
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
-	. "github.com/onsi/gomega"
-	//. "github.com/onsi/ginkgo"
 )
 
 func (f *Invocation) NewSecret(name, namespace, authTokenToSendMessage string, labels map[string]string) *core.Secret {
@@ -22,19 +20,25 @@ func (f *Invocation) CreateSecret(obj *core.Secret) (*core.Secret, error) {
 	return f.KubeClient.CoreV1().Secrets(obj.Namespace).Create(obj)
 }
 
-func (f *Invocation) DeleteAllSecrets() {
+func (f *Invocation) DeleteAllSecrets() error {
 	secrets, err := f.KubeClient.CoreV1().Secrets(metav1.NamespaceAll).List(metav1.ListOptions{
 		LabelSelector: labels.Set{
 			"app": f.App(),
 		}.String(),
 	})
-	Expect(err).NotTo(HaveOccurred())
+	if err != nil {
+		return err
+	}
 
 	for _, secret := range secrets.Items {
 		err := f.KubeClient.CoreV1().Secrets(secret.Namespace).Delete(secret.Name, &metav1.DeleteOptions{})
 		if kerr.IsNotFound(err) {
 			err = nil
 		}
-		Expect(err).NotTo(HaveOccurred())
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }

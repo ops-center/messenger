@@ -1,19 +1,11 @@
 apiVersion: messenger.kubeware.io/v1alpha1
 kind: Message
 metadata:
-# generateName: notify-hipchat-
-  name: notify-hipchat-rmhwq
-#ref:
-# kind: ClusterMessengerService
-# name: email-notifier
+ generateName: notify-hipchat-
+#  name: notify-hipchat-3
 spec:
   service: hipchat-ops-room
   message: ""
   email: ""
   chat: "Hello world \"Update\" from kubeware/messenger. Checking whether notifications are being send or not"
   sms: ""
-#status:
-#  sentTimestamp:
-#  errorMessage:
-#
-#CRD - GC:
