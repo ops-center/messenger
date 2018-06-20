@@ -66,7 +66,7 @@ func (o MessengerOptions) Config() (*server.MessengerConfig, error) {
 	serverConfig.OpenAPIConfig.Info.Version = v1alpha1.SchemeGroupVersion.Version
 	serverConfig.OpenAPIConfig.IgnorePrefixes = []string{
 		"/swaggerapi",
-		"/apis/admission.messenger.appscode.com/v1alpha1/notifiers",
+		"/apis/admission.messenger.appscode.com/v1alpha1/messages",
 	}
 
 	extraConfig := controller.NewConfig(serverConfig.ClientConfig)

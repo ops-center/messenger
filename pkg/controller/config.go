@@ -15,11 +15,12 @@ import (
 )
 
 type config struct {
-	MessengerImageTag string
-	DockerRegistry    string
-	MaxNumRequeues    int
-	NumThreads        int
-	ResyncPeriod      time.Duration
+	MessengerImageTag  string
+	DockerRegistry     string
+	MaxNumRequeues     int
+	NumThreads         int
+	ResyncPeriod       time.Duration
+	GarbageCollectTime time.Duration
 }
 
 type Config struct {
@@ -55,7 +56,7 @@ func (c *Config) New() (*MessengerController, error) {
 		return nil, err
 	}
 
-	ctrl.initNotifierWatcher()
+	ctrl.initMessageWatcher()
 
 	return ctrl, nil
 }

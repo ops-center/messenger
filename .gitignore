@@ -28,3 +28,7 @@ pki/
 .vscode/
 apiserver.local.config/
 coverage.txt
+
+*_AUTH_*
+*_TOKEN*
+.env

@@ -83,12 +83,12 @@ func matchesValue(av, bv interface{}) bool {
 			return true
 		}
 	case float64:
-		bt, ok := bv.(float64)
+		bt, ok  := bv.(float64)
 		if ok && bt == at {
 			return true
 		}
 	case bool:
-		bt, ok := bv.(bool)
+		bt, ok  := bv.(bool)
 		if ok && bt == at {
 			return true
 		}
@@ -183,18 +183,9 @@ func diff(a, b map[string]interface{}, path string, patch []Operation) ([]Operat
 }
 
 func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation, error) {
-	{
-		at := reflect.TypeOf(av)
-		bt := reflect.TypeOf(bv)
-		if at == nil && bt == nil {
-			// do nothing
-			return patch, nil
-		} else if at == nil && bt != nil {
-			return append(patch, NewPatch("add", p, bv)), nil
-		} else if at != bt {
-			// If types have changed, replace completely (preserves null in destination)
-			return append(patch, NewPatch("replace", p, bv)), nil
-		}
+	// If types have changed, replace completely
+	if reflect.TypeOf(av) != reflect.TypeOf(bv) {
+		return append(patch, NewPatch("replace", p, bv)), nil
 	}
 
 	var err error
@@ -228,6 +219,13 @@ func handleValues(av, bv interface{}, p string, patch []Operation) ([]Operation,
 					return nil, err
 				}
 			}
+		}
+	case nil:
+		switch bv.(type) {
+		case nil:
+			// Both nil, fine.
+		default:
+			patch = append(patch, NewPatch("add", p, bv))
 		}
 	default:
 		panic(fmt.Sprintf("Unknown type:%T ", av))
@@ -311,21 +309,18 @@ func min(x int, y int) int {
 
 func backtrace(s, t []interface{}, p string, i int, j int, matrix [][]int) []Operation {
 	if i > 0 && matrix[i-1][j]+1 == matrix[i][j] {
-		op := NewPatch("remove", makePath(p, i-1), nil)
-		return append([]Operation{op}, backtrace(s, t, p, i-1, j, matrix)...)
+		return append(backtrace(s, t, p, i-1, j, matrix), NewPatch("remove", makePath(p, i-1), nil))
 	}
 	if j > 0 && matrix[i][j-1]+1 == matrix[i][j] {
-		op := NewPatch("add", makePath(p, i), t[j-1])
-		return append([]Operation{op}, backtrace(s, t, p, i, j-1, matrix)...)
+		return append(backtrace(s, t, p, i, j-1, matrix), NewPatch("add", makePath(p, i), t[j-1]))
 	}
 	if i > 0 && j > 0 && matrix[i-1][j-1]+1 == matrix[i][j] {
 		if isBasicType(s[0]) {
-			op := NewPatch("replace", makePath(p, i-1), t[j-1])
-			return append([]Operation{op}, backtrace(s, t, p, i-1, j-1, matrix)...)
+			return append(backtrace(s, t, p, i-1, j-1, matrix), NewPatch("replace", makePath(p, i-1), t[j-1]))
 		}
 
 		p2, _ := handleValues(s[j-1], t[j-1], makePath(p, i-1), []Operation{})
-		return append(p2, backtrace(s, t, p, i-1, j-1, matrix)...)
+		return append(backtrace(s, t, p, i-1, j-1, matrix), p2...)
 	}
 	if i > 0 && j > 0 && matrix[i-1][j-1] == matrix[i][j] {
 		return backtrace(s, t, p, i-1, j-1, matrix)

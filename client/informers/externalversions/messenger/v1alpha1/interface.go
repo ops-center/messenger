@@ -24,8 +24,10 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// Notifiers returns a NotifierInformer.
-	Notifiers() NotifierInformer
+	// Messages returns a MessageInformer.
+	Messages() MessageInformer
+	// MessagingServices returns a MessagingServiceInformer.
+	MessagingServices() MessagingServiceInformer
 }
 
 type version struct {
@@ -39,7 +41,12 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// Notifiers returns a NotifierInformer.
-func (v *version) Notifiers() NotifierInformer {
-	return &notifierInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// Messages returns a MessageInformer.
+func (v *version) Messages() MessageInformer {
+	return &messageInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// MessagingServices returns a MessagingServiceInformer.
+func (v *version) MessagingServices() MessagingServiceInformer {
+	return &messagingServiceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

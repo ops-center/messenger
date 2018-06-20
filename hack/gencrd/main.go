@@ -3,6 +3,7 @@ package main
 import (
 	"io/ioutil"
 	"os"
+	"path/filepath"
 
 	"github.com/appscode/go/log"
 	gort "github.com/appscode/go/runtime"
@@ -31,7 +32,8 @@ func generateCRDDefinitions() {
 	defer f.Close()
 
 	crds := []*crd_api.CustomResourceDefinition{
-		v1alpha1.Notifier{}.CustomResourceDefinition(),
+		v1alpha1.MessagingService{}.CustomResourceDefinition(),
+		v1alpha1.Message{}.CustomResourceDefinition(),
 	}
 	for _, crd := range crds {
 		crdutils.MarshallCrd(f, crd, "yaml")
@@ -69,14 +71,19 @@ func generateSwaggerJson() {
 			v1alpha1.GetOpenAPIDefinitions,
 		},
 		Resources: []schema.GroupVersionResource{
-			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceNotifiers),
+			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceMessagingServices),
+			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceMessages),
 		},
 	})
 	if err != nil {
 		glog.Fatal(err)
 	}
 
-	filename := gort.GOPath() + "/src/github.com/appscode/messenger/openapi-spec/v2/swagger.json"
+	filename := gort.GOPath() + "/src/github.com/appscode/messenger/api/openapi-spec/swagger.json"
+	err = os.MkdirAll(filepath.Dir(filename), 0755)
+	if err != nil {
+		glog.Fatal(err)
+	}
 	err = ioutil.WriteFile(filename, []byte(apispec), 0644)
 	if err != nil {
 		glog.Fatal(err)

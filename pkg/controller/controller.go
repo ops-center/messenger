@@ -30,15 +30,16 @@ type MessengerController struct {
 	kubeInformerFactory      informers.SharedInformerFactory
 	messengerInformerFactory messengerinformers.SharedInformerFactory
 
-	// Notifier
-	notifierQueue    *queue.Worker
-	notifierInformer cache.SharedIndexInformer
-	notifierLister   messenger_listers.NotifierLister
+	// Notification
+	messageQueue    *queue.Worker
+	messageInformer cache.SharedIndexInformer
+	messageLister   messenger_listers.MessageLister
 }
 
 func (c *MessengerController) ensureCustomResourceDefinitions() error {
 	crds := []*crd_api.CustomResourceDefinition{
-		api.Notifier{}.CustomResourceDefinition(),
+		api.MessagingService{}.CustomResourceDefinition(),
+		api.Message{}.CustomResourceDefinition(),
 	}
 	return crdutils.RegisterCRDs(c.crdClient, crds)
 }
@@ -64,5 +65,6 @@ func (c *MessengerController) RunInformers(stopCh <-chan struct{}) {
 		}
 	}
 
-	c.notifierQueue.Run(stopCh)
+	go c.garbageCollect(stopCh, c.GarbageCollectTime)
+	c.messageQueue.Run(stopCh)
 }
