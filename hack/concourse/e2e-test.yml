@@ -3,8 +3,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: appscodeci/dind
-    tag: latest
+    repository: shudipta/ubuntu
+    tag: docker-k8s-py-onessl
 
 inputs:
 - name: messenger
