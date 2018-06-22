@@ -16,3 +16,5 @@ jobs:
     params:
       DOCKER_USER: ((docker_user))
       DOCKER_PASS: ((docker_pass))
+      TOKEN_TO_SEND: ((hipcat_send_msg_token))
+      TOKEN_TO_SEE: ((hipcat_view_msg_token))
