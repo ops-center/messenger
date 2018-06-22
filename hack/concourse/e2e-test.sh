@@ -10,15 +10,15 @@ docker run hello-world
 apt-get update &> /dev/null
 apt-get install -y git python python-pip &> /dev/null
 
-# install kubectl
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &> /dev/null
-chmod +x ./kubectl
-mv ./kubectl /bin/kubectl
-
-# install onessl
-curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-linux-amd64 \
-  && chmod +x onessl \
-  && mv onessl /usr/local/bin/
+## install kubectl
+#curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &> /dev/null
+#chmod +x ./kubectl
+#mv ./kubectl /bin/kubectl
+#
+## install onessl
+#curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-linux-amd64 \
+#  && chmod +x onessl \
+#  && mv onessl /usr/local/bin/
 
 # copy voyager to $GOPATH
 mkdir -p $GOPATH/src/github.com/appscode
