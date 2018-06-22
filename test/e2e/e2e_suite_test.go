@@ -62,10 +62,12 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	By("Using test namespace " + root.Namespace() + "...")
 
-	go root.StartAPIServerAndOperator(options.KubeConfig, options.ExtraOptions)
-	root.EventuallyAPIServerReady("v1alpha1.admission.messenger.appscode.com").Should(Succeed())
-	// let's API server be warmed up
-	time.Sleep(time.Second * 5)
+	if options.StartAPIServer {
+		go root.StartAPIServerAndOperator(options.KubeConfig, options.ExtraOptions)
+		root.EventuallyAPIServerReady("v1alpha1.admission.messenger.appscode.com").Should(Succeed())
+		// let's API server be warmed up
+		time.Sleep(time.Second * 5)
+	}
 })
 
 var _ = AfterSuite(func() {
@@ -76,18 +78,18 @@ var _ = AfterSuite(func() {
 		root.KubeClient.CoreV1().Services(root.Namespace()).Delete("messenger-local-apiserver", meta.DeleteInBackground())
 		root.KAClient.ApiregistrationV1beta1().APIServices().Delete("v1alpha1.admission.messenger.appscode.com", meta.DeleteInBackground())
 		root.KAClient.ApiregistrationV1beta1().APIServices().Delete("v1alpha1.messenger.appscode.com", meta.DeleteInBackground())
-	}
 
-	By("Removing CRD group...")
-	crds, err := root.CRDClient.CustomResourceDefinitions().List(metav1.ListOptions{
-		LabelSelector: labels.Set{
-			"app": "messenger",
-		}.String(),
-	})
-	Expect(err).NotTo(HaveOccurred())
-	for _, crd := range crds.Items {
-		err := root.CRDClient.CustomResourceDefinitions().Delete(crd.Name, &metav1.DeleteOptions{})
+		By("Removing CRD group...")
+		crds, err := root.CRDClient.CustomResourceDefinitions().List(metav1.ListOptions{
+			LabelSelector: labels.Set{
+				"app": "messenger",
+			}.String(),
+		})
 		Expect(err).NotTo(HaveOccurred())
+		for _, crd := range crds.Items {
+			err := root.CRDClient.CustomResourceDefinitions().Delete(crd.Name, &metav1.DeleteOptions{})
+			Expect(err).NotTo(HaveOccurred())
+		}
 	}
 
 	By("Deleting Namespace...")

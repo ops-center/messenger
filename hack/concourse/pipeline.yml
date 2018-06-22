@@ -1,0 +1,18 @@
+resources:
+- name: messenger
+  type: git
+  source:
+    uri: https://github.com/appscode/messenger
+    branch: concourse
+
+jobs:
+- name: messenger
+  plan:
+  - get: messenger
+    trigger: true
+  - task: e2e-test
+    file: messenger/hack/concourse/e2e-test.yml
+    privileged: true
+    params:
+      DOCKER_USER: ((docker_user))
+      DOCKER_PASS: ((docker_pass))
