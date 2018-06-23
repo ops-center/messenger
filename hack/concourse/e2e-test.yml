@@ -11,4 +11,4 @@ inputs:
 #- name: creds
 
 run:
-  path: messenger/hack/concourse/e2e_test.sh
+  path: messenger/hack/concourse/e2e-test.sh
