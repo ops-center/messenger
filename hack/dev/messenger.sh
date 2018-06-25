@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-crds=(notifiers)
+crds=(messages)
 
 echo "checking kubeconfig context"
 kubectl config current-context || { echo "Set a context (kubectl use-context <context>) out of the following:"; echo; kubectl config get-contexts; exit 1; }
