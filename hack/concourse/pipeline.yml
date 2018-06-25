@@ -18,3 +18,7 @@ jobs:
       DOCKER_PASS: ((docker_pass))
       TOKEN_TO_SEND: ((hipcat_send_msg_token))
       TOKEN_TO_SEE: ((hipcat_view_msg_token))
+      CA_CRT: ((ca_crt))
+      CA_KEY: ((ca_key))
+      CLIENT_CRT: ((client_crt))
+      CLIENT_KEY: ((client_key))

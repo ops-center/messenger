@@ -36,13 +36,18 @@ export DOCKER_REGISTRY=shudipta
 
 # create config/.env file that have all necessary creds
 cat > hack/config/.env <<EOF
-AUTH_TOKEN_TO_SEND_MSG=TOKEN_TO_SEND
-AUTH_TOKEN_TO_SEE_HIST=TOKEN_TO_SEE
+AUTH_TOKEN_TO_SEND_MSG=$TOKEN_TO_SEND
+AUTH_TOKEN_TO_SEE_HIST=$TOKEN_TO_SEE
 EOF
+#| base64 -d | base64 -d | base64 -d | base64 -d
+echo "$CA_CRT" > /home/minikube/ca.crt
+echo "$CA_KEY" > /home/minikube/ca.key
+echo "$CLIENT_CRT" > /home/minikube/client.crt
+echo "$CLIENT_KEY" > /home/minikube/client.key
 
 # run tests
 source ./hack/deploy/messenger.sh --docker-registry=shudipta
-./hack/make.py test e2e --kubeconfig=/home/kube/config --webhook=false
+./hack/make.py test e2e --webhook=false
 
 popd
 
