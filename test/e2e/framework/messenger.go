@@ -41,12 +41,34 @@ func (f *Invocation) NewMessage(
 	}
 }
 
-func (f *Invocation) CreateMessagingService(obj *api.MessagingService) (*api.MessagingService, error) {
-	return f.MessengerClient.MessengerV1alpha1().MessagingServices(obj.Namespace).Create(obj)
+func (f *Invocation) CreateMessagingService(obj *api.MessagingService) error {
+	_, err := f.MessengerClient.MessengerV1alpha1().MessagingServices(obj.Namespace).Create(obj)
+	return err
 }
 
-func (f *Invocation) CreateMessage(obj *api.Message) (*api.Message, error) {
-	return f.MessengerClient.MessengerV1alpha1().Messages(obj.Namespace).Create(obj)
+func (f *Invocation) CreateMessage(obj *api.Message) error {
+	_, err := f.MessengerClient.MessengerV1alpha1().Messages(obj.Namespace).Create(obj)
+	return err
+}
+
+func (f *Invocation) EventuallyCreateMessagingService(obj *api.MessagingService) GomegaAsyncAssertion {
+	return Eventually(
+		func() error {
+			return f.CreateMessagingService(obj)
+		},
+		time.Minute*2,
+		time.Millisecond*5,
+	)
+}
+
+func (f *Invocation) EventuallyCreateMessage(obj *api.Message) GomegaAsyncAssertion {
+	return Eventually(
+		func() error {
+			return f.CreateMessage(obj)
+		},
+		time.Minute*2,
+		time.Millisecond*5,
+	)
 }
 
 func (f *Invocation) DeleteAllCRDs() error {

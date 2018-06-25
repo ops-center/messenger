@@ -5,6 +5,8 @@ import(
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
+	"time"
+	. "github.com/onsi/gomega"
 )
 
 func (f *Invocation) NewSecret(name, namespace, authTokenToSendMessage string, labels map[string]string) *core.Secret {
@@ -16,8 +18,19 @@ func (f *Invocation) NewSecret(name, namespace, authTokenToSendMessage string, l
 	}
 }
 
-func (f *Invocation) CreateSecret(obj *core.Secret) (*core.Secret, error) {
-	return f.KubeClient.CoreV1().Secrets(obj.Namespace).Create(obj)
+func (f *Invocation) CreateSecret(obj *core.Secret) error {
+	_, err := f.KubeClient.CoreV1().Secrets(obj.Namespace).Create(obj)
+	return err
+}
+
+func (f *Invocation) EventuallyCreateSecret(obj *core.Secret) GomegaAsyncAssertion {
+	return Eventually(
+		func() error {
+			return f.CreateSecret(obj)
+		},
+		time.Minute*2,
+		time.Millisecond*5,
+	)
 }
 
 func (f *Invocation) DeleteAllSecrets() error {

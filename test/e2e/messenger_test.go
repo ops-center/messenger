@@ -19,10 +19,13 @@ var _ = Describe("Messenger", func() {
 		labels          map[string]string
 		name, namespace string
 
-		secret, notifierConfig *core.Secret
+		//secret, notifierConfig *core.Secret
+		secret *core.Secret
 
-		messagingServiceObj, messagingService *api.MessagingService
-		messageObj, message                   *api.Message
+		//messagingServiceObj, messagingService *api.MessagingService
+		messagingServiceObj *api.MessagingService
+		//messageObj, message                   *api.Message
+		messageObj *api.Message
 
 		drive                     string
 		to                        []string
@@ -78,16 +81,19 @@ var _ = Describe("Messenger", func() {
 		JustBeforeEach(func() {
 			if send {
 				By("Creating secret...")
-				notifierConfig, err = f.CreateSecret(secret)
-				Expect(err).NotTo(HaveOccurred())
+				f.EventuallyCreateSecret(secret).ShouldNot(HaveOccurred())
+				//err = f.CreateSecret(secret)
+				//Expect(err).NotTo(HaveOccurred())
 			}
 
 			By("Creating CRDs...")
-			messagingService, err = f.CreateMessagingService(messagingServiceObj)
-			Expect(err).NotTo(HaveOccurred())
+			f.EventuallyCreateMessagingService(messagingServiceObj).ShouldNot(HaveOccurred())
+			//messagingService, err = f.CreateMessagingService(messagingServiceObj)
+			//Expect(err).NotTo(HaveOccurred())
 
-			message, err = f.CreateMessage(messageObj)
-			Expect(err).NotTo(HaveOccurred())
+			f.EventuallyCreateMessage(messageObj).ShouldNot(HaveOccurred())
+			//message, err = f.CreateMessage(messageObj)
+			//Expect(err).NotTo(HaveOccurred())
 		})
 
 		Context("To \"ops-alerts\" room", func() {
