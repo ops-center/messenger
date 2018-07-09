@@ -6,6 +6,10 @@ import (
 	crd_api "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 )
 
+var (
+	EnableStatusSubresource bool
+)
+
 func (p MessagingService) CustomResourceDefinition() *crd_api.CustomResourceDefinition {
 	return crdutils.NewCustomResourceDefinition(crdutils.Config{
 		Group:         SchemeGroupVersion.Group,
@@ -17,9 +21,10 @@ func (p MessagingService) CustomResourceDefinition() *crd_api.CustomResourceDefi
 		Labels: crdutils.Labels{
 			LabelsMap: map[string]string{"app": "messenger"},
 		},
-		SpecDefinitionName:    "github.com/appscode/messenger/apis/messenger/v1alpha1.MessagingService",
-		EnableValidation:      true,
-		GetOpenAPIDefinitions: GetOpenAPIDefinitions,
+		SpecDefinitionName:      "github.com/appscode/messenger/apis/messenger/v1alpha1.MessagingService",
+		EnableValidation:        true,
+		GetOpenAPIDefinitions:   GetOpenAPIDefinitions,
+		EnableStatusSubresource: EnableStatusSubresource,
 	})
 }
 
@@ -38,9 +43,10 @@ func (p Message) CustomResourceDefinition() *crd_api.CustomResourceDefinition {
 		Labels: crdutils.Labels{
 			LabelsMap: map[string]string{"app": "messenger"},
 		},
-		SpecDefinitionName:    "github.com/appscode/messenger/apis/messenger/v1alpha1.Message",
-		EnableValidation:      true,
-		GetOpenAPIDefinitions: GetOpenAPIDefinitions,
+		SpecDefinitionName:      "github.com/appscode/messenger/apis/messenger/v1alpha1.Message",
+		EnableValidation:        true,
+		GetOpenAPIDefinitions:   GetOpenAPIDefinitions,
+		EnableStatusSubresource: EnableStatusSubresource,
 	})
 }
 

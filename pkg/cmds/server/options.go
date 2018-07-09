@@ -4,6 +4,7 @@ import (
 	"flag"
 	"time"
 
+	api "github.com/appscode/messenger/apis/messenger/v1alpha1"
 	cs "github.com/appscode/messenger/client/clientset/versioned"
 	"github.com/appscode/messenger/pkg/controller"
 	"github.com/spf13/pflag"
@@ -36,6 +37,8 @@ func (s *ExtraOptions) AddGoFlags(fs *flag.FlagSet) {
 	fs.IntVar(&s.Burst, "burst", s.Burst, "The maximum burst for throttle")
 	fs.DurationVar(&s.ResyncPeriod, "resync-period", s.ResyncPeriod, "If non-zero, will re-list this often. Otherwise, re-list will be delayed aslong as possible (until the upstream source closes the watch or times out.")
 	fs.DurationVar(&s.GarbageCollectTime, "gc-time", s.GarbageCollectTime, "The time after when crds are garbage collected")
+
+	fs.BoolVar(&api.EnableStatusSubresource, "enable-status-subresource", api.EnableStatusSubresource, "If true, uses sub resource for Voyager crds.")
 }
 
 func (s *ExtraOptions) AddFlags(fs *pflag.FlagSet) {
