@@ -62,7 +62,7 @@ func (c *FakeMessagingServices) List(opts v1.ListOptions) (result *v1alpha1.Mess
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.MessagingServiceList{}
+	list := &v1alpha1.MessagingServiceList{ListMeta: obj.(*v1alpha1.MessagingServiceList).ListMeta}
 	for _, item := range obj.(*v1alpha1.MessagingServiceList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

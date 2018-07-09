@@ -14,10 +14,7 @@ import (
 	"github.com/go-openapi/spec"
 	"github.com/golang/glog"
 	crd_api "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
-	"k8s.io/apimachinery/pkg/apimachinery/announced"
-	"k8s.io/apimachinery/pkg/apimachinery/registered"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/kube-openapi/pkg/common"
 )
@@ -42,18 +39,15 @@ func generateCRDDefinitions() {
 
 func generateSwaggerJson() {
 	var (
-		groupFactoryRegistry = make(announced.APIGroupFactoryRegistry)
-		registry             = registered.NewOrDie("")
-		Scheme               = runtime.NewScheme()
-		Codecs               = serializer.NewCodecFactory(Scheme)
+		Scheme = runtime.NewScheme()
+		Codecs = serializer.NewCodecFactory(Scheme)
 	)
 
-	install.Install(groupFactoryRegistry, registry, Scheme)
+	install.Install(Scheme)
 
 	apispec, err := openapi.RenderOpenAPISpec(openapi.Config{
-		Registry: registry,
-		Scheme:   Scheme,
-		Codecs:   Codecs,
+		Scheme: Scheme,
+		Codecs: Codecs,
 		Info: spec.InfoProps{
 			Title:   "Messenger",
 			Version: "v0",
@@ -70,9 +64,9 @@ func generateSwaggerJson() {
 		OpenAPIDefinitions: []common.GetOpenAPIDefinitions{
 			v1alpha1.GetOpenAPIDefinitions,
 		},
-		Resources: []schema.GroupVersionResource{
-			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceMessagingServices),
-			v1alpha1.SchemeGroupVersion.WithResource(v1alpha1.ResourceMessages),
+		Resources: []openapi.TypeInfo{
+			{v1alpha1.SchemeGroupVersion, v1alpha1.ResourceMessagingServices, v1alpha1.ResourceMessagingServices, true},
+			{v1alpha1.SchemeGroupVersion, v1alpha1.ResourceMessages, v1alpha1.ResourceMessages, true},
 		},
 	})
 	if err != nil {
