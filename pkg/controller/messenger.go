@@ -76,9 +76,10 @@ func (c *MessengerController) reconcileMessage(key string) error {
 			glog.Infof("Message with key %s has been sent", key)
 		}
 
-		_, updateErr := util.UpdateMessageStatus(c.messengerClient.MessengerV1alpha1(), msg, func(status *api.MessageStatus) *api.MessageStatus {
-			return msgStatus
-		})
+		_, updateErr := util.UpdateMessageStatus(c.messengerClient.MessengerV1alpha1(), msg, func(in *api.MessageStatus) *api.MessageStatus {
+			*in = *msgStatus
+			return in
+		}, api.EnableStatusSubresource)
 		if updateErr != nil {
 			//glog.Errorf("Failed to update status for Message with key %s: %v", key, updateErr)
 			return fmt.Errorf("Failed to update status for Message with key %s: %v", key, updateErr)
