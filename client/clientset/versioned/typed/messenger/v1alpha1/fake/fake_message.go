@@ -62,7 +62,7 @@ func (c *FakeMessages) List(opts v1.ListOptions) (result *v1alpha1.MessageList, 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.MessageList{}
+	list := &v1alpha1.MessageList{ListMeta: obj.(*v1alpha1.MessageList).ListMeta}
 	for _, item := range obj.(*v1alpha1.MessageList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
